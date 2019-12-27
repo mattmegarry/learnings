@@ -2,6 +2,10 @@
   "name": "learnings",
   "version": "1.0.0",
   "description": "A simple app to store and sort your personal learnings",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mattmegarry/learnings.git"
+  },
   "scripts": {
     "start": "ts-node src/bin/www.ts",
     "dev": "nodemon --exec ts-node src/bin/www.ts",
