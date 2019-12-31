@@ -7,9 +7,23 @@
   background-color: peachpuff;
   color: #3a3d3f;
   display: flex;
-  justify-content: center;
   align-items: center;
+}
+
+.header-public {
+  justify-content: center;
+}
+
+.header-user {
+  justify-content: space-between;
+}
+
+.logo-public {
   font-size: 2em;
+}
+
+.logo-user {
+  font-size: 1em;
 }
 
 .main {
