@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Snippet } from "./Snippet";
 
 @Entity()
 export class User {
@@ -10,4 +11,7 @@ export class User {
 
   @Column({ type: "varchar", length: 320, unique: true })
   email: string;
+
+  @OneToMany(type => Snippet, snippet => snippet.user)
+  snippets: Snippet[];
 }
