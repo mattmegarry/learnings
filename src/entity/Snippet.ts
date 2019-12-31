@@ -12,6 +12,9 @@ export class Snippet {
   @Column({ type: "varchar", length: 2500, unique: true })
   snippetText: string;
 
+  @Column({ nullable: false })
+  userId: string;
+
   @ManyToOne(type => User, user => user.snippets)
   user: User;
 }
