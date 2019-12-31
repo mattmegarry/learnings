@@ -4,9 +4,11 @@
 
 .header {
   height: 10vh;
-  background-color: goldenrod;
-  color: white;
-  text-align: center;
+  background-color: peachpuff;
+  color: #3a3d3f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 2em;
 }
 
