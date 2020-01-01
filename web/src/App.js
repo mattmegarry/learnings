@@ -1,8 +1,12 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { tokenFoundInLocalStorage } from "./utils/auth";
 
 import Header from "./components/blocks/Header";
+import Login from "./components/pages/Login";
+import Signup from "./components/pages/Signup";
+import NotFound from "./components/pages/NotFound";
 
 import "./App.css";
 
@@ -18,7 +22,13 @@ class App extends Component {
       <div className="wrapper">
         <Header loggedIn={this.state.loggedIn} />
         <div className="main">
-          <div>THE CONTENT</div>
+          <Router>
+            <Switch>
+              <Route exact path="/" component={Login} />
+              <Route exact path="/signup" component={Signup} />
+              <Route component={NotFound} />
+            </Switch>
+          </Router>
         </div>
       </div>
     );
