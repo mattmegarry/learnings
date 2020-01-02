@@ -9,6 +9,6 @@
   "migrations": ["src/migration/**/*.ts"],
   "subscribers": ["src/subscriber/**/*.ts"],
   "logging": true,
-  "dropSchema": true,
+  "dropSchema": false,
   "synchronize": true
 }

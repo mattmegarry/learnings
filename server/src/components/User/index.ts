@@ -2,7 +2,7 @@ import * as express from "express";
 import { Request, Response } from "express";
 const userRouter = express.Router();
 
-import { hashSaltPassword } from "../../utils/auth";
+import { passwordMatches, createToken } from "../../utils/auth";
 
 import { getConnection } from "typeorm";
 import { User } from "../../entity/User";
@@ -19,6 +19,30 @@ userRouter.post("/signup", async function(req: Request, res: Response) {
     } else {
       const results = await userRepository.save(user);
       res.status(200).send(results);
+    }
+  } catch (e) {
+    console.error(e);
+    res
+      .status(500)
+      .send([
+        "Oops! Something went wrong. Please try again or contact support"
+      ]);
+  }
+});
+
+userRouter.post("/login", async function(req: Request, res: Response) {
+  try {
+    const userRepository = getConnection().getRepository(User);
+    const user = await userRepository.findOne({ email: req.body.email });
+
+    if (await passwordMatches(req.body.password, user.password)) {
+      res.status(200).send({
+        message: "Login successful",
+        token: createToken(user.id),
+        user: { id: user.id, username: user.username }
+      });
+    } else {
+      res.status(401).send(["Login failed. Please try again..."]);
     }
   } catch (e) {
     console.error(e);

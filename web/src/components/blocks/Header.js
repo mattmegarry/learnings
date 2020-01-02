@@ -1,14 +1,14 @@
 import React from "react";
 
 function Header(props) {
-  const loggedIn = props.loggedIn;
+  const user = props.user;
 
   return (
     <>
-      {loggedIn ? (
+      {user.id ? (
         <div className="header header-user">
           <div className="logo logo-user">learnings.me</div>
-          <div className="user-info">USER INFO!</div>
+          <div className="user-info">Hi, {user.username}!</div>
         </div>
       ) : (
         <div className="header header-public">
