@@ -22,7 +22,7 @@ export class User {
   @IsEmail({}, { message: "Please enter a valid email address" })
   email: string;
 
-  @Column({ type: "varchar", length: 60 })
+  @Column({ type: "varchar", length: 60, select: false })
   @MinLength(8, { message: "Password must be $constraint1 characters or more" })
   @MaxLength(60, {
     message: "Password must be $constraint1 characters or more"

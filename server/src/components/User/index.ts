@@ -32,8 +32,15 @@ userRouter.post("/signup", async function(req: Request, res: Response) {
 
 userRouter.post("/login", async function(req: Request, res: Response) {
   try {
+    const email = req.body.email;
     const userRepository = getConnection().getRepository(User);
-    const user = await userRepository.findOne({ email: req.body.email });
+    const user = await userRepository
+      .createQueryBuilder()
+      .select("user")
+      .addSelect("user.password")
+      .from(User, "user")
+      .where("user.email = :email", { email: email })
+      .getOne();
 
     if (await passwordMatches(req.body.password, user.password)) {
       res.status(200).send({
