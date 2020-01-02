@@ -2,6 +2,7 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as logger from "morgan";
 import * as cors from "cors";
+import * as createError from "http-errors";
 import { createConnection } from "typeorm";
 
 import router from "./components";
@@ -24,7 +25,20 @@ export default async () => {
 
     app.use("/", router);
 
-    //TO DO: GLOBAL ERROR HANDLING GOES HERE
+    app.use(function(req, res, next) {
+      next(createError(404));
+    });
+
+    app.use(function(err, req, res, next) {
+      console.error(err);
+
+      res.status(err.status || 500);
+      res.json(
+        err.status === 404
+          ? { error: "Resource Not Found" }
+          : { error: "Unexpected Error - Sorry!" }
+      );
+    });
 
     return app;
   });
