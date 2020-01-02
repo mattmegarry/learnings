@@ -15,6 +15,6 @@ export class Snippet {
   @Column({ nullable: false })
   userId: string;
 
-  @ManyToOne(type => User, user => user.snippets)
+  @ManyToOne(() => User, user => user.snippets)
   user: User;
 }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { tokenFoundInLocalStorage } from "./utils/auth";
+import { tokenFoundInLocalStorage } from "./utils/clientAuth";
 
 import Header from "./components/blocks/Header";
 import Login from "./components/pages/Login";
