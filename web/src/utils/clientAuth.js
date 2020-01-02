@@ -5,3 +5,11 @@ export const tokenFoundInLocalStorage = () => {
     return true;
   }
 };
+
+export const hydrateUserFromLocalStorage = () => {
+  const user = {
+    username: localStorage.getItem("username"),
+    id: localStorage.getItem("userId")
+  };
+  return user;
+};

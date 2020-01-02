@@ -8,7 +8,10 @@ function Header(props) {
       {user.id ? (
         <div className="header header-user">
           <div className="logo logo-user">learnings.me</div>
-          <div className="user-info">Hi, {user.username}!</div>
+          <div>
+            <div className="user-info">Hi, {user.username}!</div>
+            <p>signout</p>
+          </div>
         </div>
       ) : (
         <div className="header header-public">

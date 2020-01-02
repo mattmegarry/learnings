@@ -2,11 +2,15 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { authRequest } from "./utils/http";
-import { tokenFoundInLocalStorage } from "./utils/clientAuth";
+import {
+  tokenFoundInLocalStorage,
+  hydrateUserFromLocalStorage
+} from "./utils/clientAuth";
 
 import Header from "./components/blocks/Header";
 import Login from "./components/pages/Login";
 import Signup from "./components/pages/Signup";
+import UserDash from "./components/pages/UserDash";
 import NotFound from "./components/pages/NotFound";
 
 import "./App.css";
@@ -16,10 +20,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      user: {
-        username: undefined,
-        id: undefined
-      },
+      user: hydrateUserFromLocalStorage(),
       authTokenPresent: tokenFoundInLocalStorage()
     };
 
@@ -32,6 +33,8 @@ class App extends Component {
         console.log(res);
         if (res.status === 200) {
           localStorage.setItem("token", res.data.token);
+          localStorage.setItem("username", res.data.user.username);
+          localStorage.setItem("userId", res.data.user.id);
           this.setState({
             authTokenPresent: true,
             user: { username: res.data.user.username, id: res.data.user.id }
@@ -53,11 +56,16 @@ class App extends Component {
             <Switch>
               <Route
                 exact
+                path="/dashboard"
+                render={props => <UserDash {...props} user={this.state.user} />}
+              />
+              <Route
+                exact
                 path="/"
                 render={props => (
                   <Login
                     {...props}
-                    loggedIn={this.state.authTokenPresent}
+                    authTokenPresent={this.state.authTokenPresent}
                     login={this.login}
                   />
                 )}

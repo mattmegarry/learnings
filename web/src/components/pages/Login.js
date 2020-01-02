@@ -42,12 +42,12 @@ class Login extends Component {
   }
 
   render() {
-    const userHomePath = { from: { pathname: "/dashboard" } };
+    const userHomePath = { pathname: "/dashboard" };
     const { from } = this.props.location.state || userHomePath;
     const { redirectToReferrer, errorMessages } = this.state;
 
-    if (this.props.authTokenPresent) return <Redirect to={userHomePath} />;
     if (redirectToReferrer) return <Redirect to={from} />;
+    if (this.props.authTokenPresent) return <Redirect to={userHomePath} />;
 
     const errorListItems = errorMessages.map((message, index) => (
       <li key={index}>{message}</li>

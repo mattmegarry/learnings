@@ -7,6 +7,8 @@ import snippet from "./Snippet";
 
 router.use("/", home);
 router.use("/users", user);
+
+router.use("/users", snippet);
 router.use("/snippets", snippet);
 
 export default router;

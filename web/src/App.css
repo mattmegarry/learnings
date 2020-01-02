@@ -36,3 +36,10 @@
 .user-errors {
   color: red;
 }
+
+.snippet {
+  margin: 5px;
+  padding: 5px;
+  border: solid 2px blue;
+  border-radius: 3px;
+}

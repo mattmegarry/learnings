@@ -36,13 +36,16 @@ export const authRequest = (path, method, body) => {
     .then(async res => {
       console.log(res);
       //500 and other error handling for the user could go here??
+      if (res.status === 401) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        localStorage.removeItem("userId");
+
+        return {};
+      }
       const result = {};
       result.status = res.status;
       result.data = await res.json();
-
-      if (res.status === 401) {
-        localStorage.removeItem("token");
-      }
 
       return result;
     })
