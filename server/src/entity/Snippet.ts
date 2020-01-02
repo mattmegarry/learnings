@@ -9,7 +9,7 @@ export class Snippet {
   @Column({ type: "varchar", length: 500, nullable: true })
   question: string;
 
-  @Column({ type: "varchar", length: 2500, unique: true })
+  @Column({ type: "varchar", length: 2500 })
   snippetText: string;
 
   @Column({ nullable: false })
