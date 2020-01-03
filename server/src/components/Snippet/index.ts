@@ -23,7 +23,7 @@ snippetRouter.get("/:userId/snippets", authorization, async function(
     .createQueryBuilder()
     .select("snippet")
     .from(Snippet, "snippet")
-    .where("snippet.userId = :id", { id: req.params.userId }) // Is it silly to use params here? If we just got user from DB anyway??
+    .where("snippet.userId = :id", { id: res.locals.authorizedUser.id })
     .getMany();
 
   const data = {

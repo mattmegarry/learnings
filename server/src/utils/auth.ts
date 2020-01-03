@@ -50,13 +50,13 @@ export const authorization = async (
         return userId;
       }
     });
-    console.log(userId);
     const userRepository = getConnection().getRepository(User);
     const user = await userRepository.findOne({ id: userId });
-    console.log("Protect says the user is...(does it lack password??)");
-    console.log(user);
     if (user) {
-      res.locals.user = user;
+      if (req.params.userId !== user.id) {
+        return res.status(401).end();
+      }
+      res.locals.authorizedUser = user;
       next();
     } else {
       return res.status(401).end();
