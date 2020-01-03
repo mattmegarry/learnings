@@ -1,3 +1,5 @@
+import { deleteUserLocalStorage } from "./localStorage.utils";
+
 export const openRequest = (path, method, body) => {
   const options = {
     method: method,
@@ -34,18 +36,18 @@ export const authRequest = (path, method, body) => {
 
   return fetch("http://localhost:4001" + path, options)
     .then(async res => {
+      console.log("DEVELOPMENT! Response is...");
       console.log(res);
-      //500 and other error handling for the user could go here??
+      // TO DO: 500
       if (res.status === 401) {
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.removeItem("userId");
-
+        deleteUserLocalStorage();
         return {};
       }
       const result = {};
       result.status = res.status;
       result.data = await res.json();
+      console.log("DEVELOPMENT! Response is...");
+      console.log(res);
 
       return result;
     })
