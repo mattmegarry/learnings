@@ -19,20 +19,30 @@ snippetRouter.get("/:userId/snippets", authorization, async function(
   req: Request,
   res: Response
 ) {
-  const snippets = await getConnection()
-    .createQueryBuilder()
-    .select("snippet")
-    .from(Snippet, "snippet")
-    .where("snippet.userId = :id", { id: res.locals.authorizedUser.id })
-    .getMany();
+  try {
+    const snippets = await getConnection()
+      .createQueryBuilder()
+      .select("snippet")
+      .from(Snippet, "snippet")
+      .where("snippet.userId = :id", { id: res.locals.authorizedUser.id })
+      .getMany();
 
-  const data = {
-    snippets
-  };
+    const data = {
+      snippets
+    };
+    console.log(data);
+    return res.status(200).send(data);
+  } catch (e) {
+    console.error(e);
+    return res.status(500).end();
+  }
+});
 
-  console.log(data);
-
-  return res.status(200).send(data);
+snippetRouter.get("/test401", authorization, async function(
+  req: Request,
+  res: Response
+) {
+  return res.status(401).send();
 });
 
 export default snippetRouter;
