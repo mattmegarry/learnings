@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { authRequest } from "../../utils/http";
+import { authRequest } from "../../utils/http.utils";
+import { Redirect } from "react-router-dom";
 
 class UserDash extends Component {
   constructor(props) {
@@ -11,17 +12,25 @@ class UserDash extends Component {
   }
 
   componentDidMount() {
-    authRequest(`/users/${this.props.user.id}/snippets`, "GET")
-      .then(res => {
-        if (res.status === 200) {
-          this.setState({ snippets: res.data.snippets });
-        }
-      })
-      .catch(e => console.error(e));
+    const { user } = this.props;
+    if (user) {
+      authRequest(`/users/${user.id}/snippets`, "GET")
+        .then(res => {
+          if (res.status === 200) {
+            this.setState({ snippets: res.data.snippets });
+          }
+        })
+        .catch(e => console.error(e));
+    }
   }
 
   render() {
     const { snippets } = this.state;
+    const { user } = this.props;
+    console.log(user);
+    console.log("DASH RENDERED");
+
+    if (!user) return <Redirect to={{ path: "/" }} />;
 
     const snippetListItems = snippets.map(snippet => (
       <li key={snippet.id} className="snippet">

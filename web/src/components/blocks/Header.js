@@ -2,15 +2,16 @@ import React from "react";
 
 function Header(props) {
   const user = props.user;
+  const signout = props.signout;
 
   return (
     <>
-      {user.id ? (
+      {user ? (
         <div className="header header-user">
           <div className="logo logo-user">learnings.me</div>
           <div>
             <div className="user-info">Hi, {user.username}!</div>
-            <p>signout</p>
+            <button onClick={signout}>Signout</button>
           </div>
         </div>
       ) : (

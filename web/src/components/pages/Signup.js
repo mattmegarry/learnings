@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 
-import { openRequest } from "../../utils/http";
+import { openRequest } from "../../utils/http.utils";
 
 class Signup extends Component {
   constructor(props) {

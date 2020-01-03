@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { authRequest } from "./utils/http";
+import { authRequest } from "./utils/http.utils";
 import {
   tokenFoundInLocalStorage,
-  hydrateUserFromLocalStorage
-} from "./utils/clientAuth";
+  hydrateUserFromLocalStorage,
+  deleteUserLocalStorage
+} from "./utils/localStorage.utils";
 
 import Header from "./components/blocks/Header";
 import Login from "./components/pages/Login";
@@ -25,6 +26,7 @@ class App extends Component {
     };
 
     this.login = this.login.bind(this);
+    this.signout = this.signout.bind(this);
   }
 
   login(body, cb) {
@@ -47,10 +49,15 @@ class App extends Component {
       .catch(e => console.error(e));
   }
 
+  signout() {
+    deleteUserLocalStorage();
+    this.setState({ user: null, authTokenPresent: false });
+  }
+
   render() {
     return (
       <div className="wrapper">
-        <Header user={this.state.user} />
+        <Header user={this.state.user} signout={this.signout} />
         <div className="main">
           <Router>
             <Switch>

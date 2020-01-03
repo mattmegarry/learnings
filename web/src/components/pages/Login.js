@@ -9,6 +9,7 @@ class Login extends Component {
       email: "",
       password: "",
       redirectToReferrer: false,
+      redirectToUserHome: false,
       errorMessages: []
     };
 
@@ -34,7 +35,11 @@ class Login extends Component {
 
     this.props.login(body, errorMessages => {
       if (!errorMessages) {
-        this.setState({ redirectToReferrer: true });
+        if (this.props.location.state) {
+          this.setState({ redirectToReferrer: true });
+        } else {
+          this.setState({ redirectToUserHome: true });
+        }
       } else {
         this.setState({ errorMessages: errorMessages });
       }
@@ -43,11 +48,16 @@ class Login extends Component {
 
   render() {
     const userHomePath = { pathname: "/dashboard" };
-    const { from } = this.props.location.state || userHomePath;
-    const { redirectToReferrer, errorMessages } = this.state;
+    const redirected = this.props.location.state;
+    const {
+      redirectToReferrer,
+      redirectToUserHome,
+      errorMessages
+    } = this.state;
 
-    if (redirectToReferrer) return <Redirect to={from} />;
     if (this.props.authTokenPresent) return <Redirect to={userHomePath} />;
+    if (redirectToReferrer) return <Redirect to={redirected.from} />;
+    if (redirectToUserHome) return <Redirect to={userHomePath} />;
 
     const errorListItems = errorMessages.map((message, index) => (
       <li key={index}>{message}</li>
