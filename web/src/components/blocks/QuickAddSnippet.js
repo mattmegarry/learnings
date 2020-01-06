@@ -9,19 +9,20 @@ class QuickAddSnippet extends Component {
       questionText: "",
       snippetText: "",
       successMessage: null,
-      errorMessage: null
+      errorMessage: null,
+      showQuestionInput: false
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.ctrlEnterSubmit = this.ctrlEnterSubmit.bind(this);
+    this.handleKeyboardEvents = this.handleKeyboardEvents.bind(this);
   }
 
   componentDidMount() {
-    document.addEventListener("keydown", this.ctrlEnterSubmit, false);
+    document.addEventListener("keydown", this.handleKeyboardEvents, false);
   }
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.ctrlEnterSubmit, false);
+    document.removeEventListener("keydown", this.handleKeyboardEvents, false);
   }
 
   handleChange(event) {
@@ -66,28 +67,38 @@ class QuickAddSnippet extends Component {
     );
   }
 
-  ctrlEnterSubmit(event) {
+  handleKeyboardEvents(event) {
     if (event.ctrlKey && event.key === "Enter") {
       this.handleSubmit(event);
+    }
+
+    if (event.ctrlKey && event.key === "ArrowUp") {
+      this.setState(prevState => ({
+        showQuestionInput: !prevState.showQuestionInput
+      }));
     }
   }
 
   render() {
-    const { successMessage, errorMessage } = this.state;
+    const { successMessage, errorMessage, showQuestionInput } = this.state;
 
     return (
       <div>
         <fieldset className="quick-add-fieldset">
           <legend>Quick Add</legend>
           <form className="quick-add-form" onSubmit={this.handleSubmit}>
-            <input
-              className="question-input quick-add-item"
-              type="text"
-              name="questionText"
-              value={this.state.questionText}
-              onChange={this.handleChange}
-              placeholder="Question"
-            />
+            {showQuestionInput ? (
+              <input
+                className="question-input quick-add-item"
+                type="text"
+                name="questionText"
+                value={this.state.questionText}
+                onChange={this.handleChange}
+                placeholder="Question"
+              />
+            ) : (
+              ""
+            )}
             <textarea
               className="snippet-textarea quick-add-item"
               name="snippetText"
