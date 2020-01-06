@@ -3,6 +3,8 @@ import {
   Column,
   PrimaryGeneratedColumn,
   OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
   BeforeInsert
 } from "typeorm";
 import { IsEmail, MinLength, MaxLength } from "class-validator";
@@ -28,6 +30,12 @@ export class User {
     message: "Password must be $constraint1 characters or more"
   })
   password: string;
+
+  @CreateDateColumn({ nullable: false })
+  createdAt: Date;
+
+  @UpdateDateColumn({ nullable: true })
+  updatedAt: Date;
 
   @OneToMany(() => Snippet, snippet => snippet.user)
   snippets: Snippet[];
