@@ -2,12 +2,40 @@
   text-align: center;
 }
 
+.container {
+  margin-right: auto;
+  margin-left: auto;
+
+  width: 80vw;
+  max-width: 960px;
+
+  /*   padding-right: 10px;
+  padding-left: 10px; */
+}
+
+.header-wrapper {
+  background-color: peachpuff;
+}
+
+.main-wrapper {
+  background-color: lightgrey;
+}
+
 .header {
   height: 10vh;
-  background-color: peachpuff;
   color: #3a3d3f;
   display: flex;
   align-items: center;
+}
+
+.main {
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+}
+
+.user-dashboard {
+  width: 100%;
 }
 
 .header-public {
@@ -26,13 +54,6 @@
   font-size: 1em;
 }
 
-.main {
-  margin: 2vh auto;
-  border: solid 1px black;
-  display: flex;
-  justify-content: center;
-}
-
 .user-errors {
   color: red;
 }
@@ -42,4 +63,23 @@
   padding: 5px;
   border: solid 2px blue;
   border-radius: 3px;
+  white-space: pre-wrap;
+}
+
+.quick-add-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.quick-add-item {
+  margin-bottom: 1vh;
+}
+
+.hyphenate {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
 }

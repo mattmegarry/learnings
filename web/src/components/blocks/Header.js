@@ -7,16 +7,26 @@ function Header(props) {
   return (
     <>
       {user ? (
-        <div className="header header-user">
-          <div className="logo logo-user">learnings.me</div>
-          <div>
-            <div className="user-info">Hi, {user.username}!</div>
-            <button onClick={signout}>Signout</button>
+        <div className="header-wrapper">
+          <div className="container">
+            <div className="header header-user">
+              <div className="logo logo-user">learnings.me</div>
+              <div>
+                <div className="user-info">Hi, {user.username}!</div>
+                <button onClick={signout}>Signout</button>
+              </div>
+            </div>
           </div>
         </div>
       ) : (
-        <div className="header header-public">
-          <div className="logo logo-public">learnings.me</div>
+        <div className="header-wrapper">
+          <div className="container">
+            <div className="header header-public">
+              <div className="inner">
+                <div className="logo logo-public">learnings.me</div>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </>

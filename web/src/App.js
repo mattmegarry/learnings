@@ -56,33 +56,39 @@ class App extends Component {
 
   render() {
     return (
-      <div className="wrapper">
+      <>
         <Header user={this.state.user} signout={this.signout} />
-        <div className="main">
-          <Router>
-            <Switch>
-              <Route
-                exact
-                path="/dashboard"
-                render={props => <UserDash {...props} user={this.state.user} />}
-              />
-              <Route
-                exact
-                path="/"
-                render={props => (
-                  <Login
-                    {...props}
-                    authTokenPresent={this.state.authTokenPresent}
-                    login={this.login}
+        <div className="main-wrapper">
+          <div className="container">
+            <div className="main">
+              <Router>
+                <Switch>
+                  <Route
+                    exact
+                    path="/dashboard"
+                    render={props => (
+                      <UserDash {...props} user={this.state.user} />
+                    )}
                   />
-                )}
-              />
-              <Route exact path="/signup" component={Signup} />
-              <Route component={NotFound} />
-            </Switch>
-          </Router>
+                  <Route
+                    exact
+                    path="/"
+                    render={props => (
+                      <Login
+                        {...props}
+                        authTokenPresent={this.state.authTokenPresent}
+                        login={this.login}
+                      />
+                    )}
+                  />
+                  <Route exact path="/signup" component={Signup} />
+                  <Route component={NotFound} />
+                </Switch>
+              </Router>
+            </div>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 }

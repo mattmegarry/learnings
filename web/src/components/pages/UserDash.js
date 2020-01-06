@@ -39,13 +39,13 @@ class UserDash extends Component {
     if (!user) return <Redirect to={{ path: "/" }} />;
 
     const snippetListItems = snippets.map(snippet => (
-      <li key={snippet.id} className="snippet">
+      <li key={snippet.id} className="snippet hyphenate">
         {snippet.snippetText}
       </li>
     ));
 
     return (
-      <div>
+      <div className="user-dashboard">
         <QuickAddSnippet
           userId={this.props.user.id}
           getRecentSnippets={this.getRecentSnippets}

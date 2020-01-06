@@ -62,21 +62,25 @@ class QuickAddSnippet extends Component {
           <legend>Quick Add</legend>
           <form className="quick-add-form" onSubmit={this.handleSubmit}>
             <input
+              className="question-input quick-add-item"
               type="text"
               name="questionText"
               value={this.state.questionText}
               onChange={this.handleChange}
               placeholder="Question"
             />
-            <input
-              type="text"
+            <textarea
+              className="snippet-textarea quick-add-item"
               name="snippetText"
               value={this.state.snippetText}
               onChange={this.handleChange}
-              placeholder="Snippet"
             />
             <div>{message}</div>
-            <input type="submit" value="Submit" />
+            <input
+              className="quick-add-submit quick-add-item"
+              type="submit"
+              value="Submit"
+            />
           </form>
         </fieldset>
       </div>
