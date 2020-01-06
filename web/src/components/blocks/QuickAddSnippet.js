@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import { authRequest } from "../../utils/http.utils";
 
 class QuickAddSnippet extends Component {
@@ -10,11 +9,19 @@ class QuickAddSnippet extends Component {
       questionText: "",
       snippetText: "",
       successMessage: null,
-      errorMessage: ""
+      errorMessage: null
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.ctrlEnterSubmit = this.ctrlEnterSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener("keydown", this.ctrlEnterSubmit, false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.ctrlEnterSubmit, false);
   }
 
   handleChange(event) {
@@ -43,18 +50,30 @@ class QuickAddSnippet extends Component {
           });
 
           this.props.getRecentSnippets();
-          setTimeout(() => this.setState({ successMessage: null }), 200);
+          this.resetMessages();
         } else if (res.status === 400 || res.status === 500) {
           this.setState({ errorMessage: res.data });
+          this.resetMessages();
         }
       })
       .catch(e => console.error(e));
   }
 
+  resetMessages() {
+    setTimeout(
+      () => this.setState({ successMessage: null, errorMessage: null }),
+      300
+    );
+  }
+
+  ctrlEnterSubmit(event) {
+    if (event.ctrlKey && event.key === "Enter") {
+      this.handleSubmit(event);
+    }
+  }
+
   render() {
     const { successMessage, errorMessage } = this.state;
-
-    const message = successMessage || errorMessage;
 
     return (
       <div>
@@ -75,7 +94,8 @@ class QuickAddSnippet extends Component {
               value={this.state.snippetText}
               onChange={this.handleChange}
             />
-            <div>{message}</div>
+            <div>{successMessage}</div>
+            <div className="user-errors">{errorMessage}</div>
             <input
               className="quick-add-submit quick-add-item"
               type="submit"
