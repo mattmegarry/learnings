@@ -16,7 +16,7 @@ export class Snippet {
   @Column({ type: "varchar", length: 500, nullable: true })
   questionText: string;
 
-  @Column({ type: "varchar", length: 2500 })
+  @Column({ type: "varchar", length: 2500, nullable: false })
   snippetText: string;
 
   @Column({ nullable: false })

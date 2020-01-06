@@ -10,7 +10,9 @@ snippetRouter.post("/:userId", authorization, async function(
   req: Request,
   res: Response
 ) {
-  console.log(req.body);
+  if (!req.body.snippetText) {
+    return res.status(400).send(["Snippet text is required!"]);
+  }
   try {
     const savedSnippet = await getConnection()
       .createQueryBuilder()

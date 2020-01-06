@@ -18,6 +18,7 @@ export class User {
   id: string;
 
   @Column({ type: "varchar", length: 35, unique: true })
+  @MinLength(2, { message: "Username must be $constraint1 characters or more" })
   username: string;
 
   @Column({ type: "varchar", length: 320, unique: true })
