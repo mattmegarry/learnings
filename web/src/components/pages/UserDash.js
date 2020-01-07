@@ -1,9 +1,14 @@
 import React, { Component } from "react";
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  NavLink
+} from "react-router-dom";
 
 import NotFound from "./NotFound";
-import UserHome from "./UserHome";
+import SnippetHome from "./SnippetHome";
 import SnippetCollections from "./SnippetCollections";
 import SnippetSeries from "./SnippetSeries";
 import SnippetFind from "./SnippetFind";
@@ -18,14 +23,27 @@ class UserDash extends Component {
 
     return (
       <div className="user-dashboard">
-        <p>LINKS TO PLACES GO HERE</p>
         <Router>
+          <div className="user-dashboard-nav">
+            <NavLink exact to="/" activeClassName="nav-link-selected">
+              Home
+            </NavLink>
+            <NavLink to="/collections" activeClassName="nav-link-selected">
+              Collections
+            </NavLink>
+            <NavLink to="/series" activeClassName="nav-link-selected">
+              Series
+            </NavLink>
+            <NavLink to="/find" activeClassName="nav-link-selected">
+              Find
+            </NavLink>
+          </div>
           <Switch>
             <Route
               exact
               path="/"
               render={props => (
-                <UserHome {...props} userId={userId} login={this.login} />
+                <SnippetHome {...props} userId={userId} login={this.login} />
               )}
             />
             <Route exact path="/collections" component={SnippetCollections} />

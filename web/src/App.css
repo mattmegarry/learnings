@@ -90,3 +90,14 @@
 .hidden {
   display: none;
 }
+
+.user-dashboard-nav {
+  margin: 1vh auto;
+  width: 60%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.nav-link-selected {
+  color: red;
+}
