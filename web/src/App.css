@@ -86,3 +86,7 @@
   -moz-hyphens: auto;
   hyphens: auto;
 }
+
+.hidden {
+  display: none;
+}
