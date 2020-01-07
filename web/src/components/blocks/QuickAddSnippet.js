@@ -111,6 +111,7 @@ class QuickAddSnippet extends Component {
               value={this.state.questionText}
               onChange={this.handleChange}
               placeholder="Question"
+              autoComplete="off"
               ref={this.questionInput}
             />
             <textarea
