@@ -17,6 +17,8 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {}
+
   handleChange(event) {
     const name = event.target.name;
 
@@ -36,8 +38,10 @@ class Login extends Component {
     this.props.login(body, errorMessages => {
       if (!errorMessages) {
         if (this.props.location.state) {
+          console.log("referer");
           this.setState({ redirectToReferrer: true });
         } else {
+          console.log("home");
           this.setState({ redirectToUserHome: true });
         }
       } else {
@@ -47,7 +51,7 @@ class Login extends Component {
   }
 
   render() {
-    const userHomePath = { pathname: "/dashboard" };
+    const userHomePath = { pathname: "/" };
     const redirected = this.props.location.state;
     const {
       redirectToReferrer,
@@ -55,7 +59,7 @@ class Login extends Component {
       errorMessages
     } = this.state;
 
-    if (this.props.authTokenPresent) return <Redirect to={userHomePath} />;
+    if (this.state.authTokenPresent) return <Redirect to={userHomePath} />;
     if (redirectToReferrer) return <Redirect to={redirected.from} />;
     if (redirectToUserHome) return <Redirect to={userHomePath} />;
 

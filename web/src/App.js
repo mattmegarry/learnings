@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import PrivateRoute from "./components/routing/PrivateRoute";
 
 import { authRequest } from "./utils/http.utils";
 import {
@@ -65,14 +66,7 @@ class App extends Component {
                 <Switch>
                   <Route
                     exact
-                    path="/dashboard"
-                    render={props => (
-                      <UserDash {...props} user={this.state.user} />
-                    )}
-                  />
-                  <Route
-                    exact
-                    path="/"
+                    path="/login"
                     render={props => (
                       <Login
                         {...props}
@@ -82,6 +76,12 @@ class App extends Component {
                     )}
                   />
                   <Route exact path="/signup" component={Signup} />
+                  <PrivateRoute
+                    path="/"
+                    component={UserDash}
+                    authTokenPresent={this.state.authTokenPresent}
+                    user={this.state.user}
+                  />
                   <Route component={NotFound} />
                 </Switch>
               </Router>
