@@ -26,7 +26,7 @@ collectionRouter.post("/:userId", authorization, async function(
       ])
       .execute();
 
-    return res.status(200).send();
+    return res.status(200).send({ message: "Collection Saved" });
   } catch (e) {
     console.error(e);
     return res.status(500).end();

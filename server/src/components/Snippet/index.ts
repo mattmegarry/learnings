@@ -27,7 +27,7 @@ snippetRouter.post("/:userId", authorization, async function(
       ])
       .execute();
 
-    return res.status(200).send();
+    return res.status(200).send({ message: "Snippet Saved" });
   } catch (e) {
     console.error(e);
     return res.status(500).end();
@@ -57,13 +57,6 @@ snippetRouter.get("/:userId/recent-snippets", authorization, async function(
     console.error(e);
     return res.status(500).end();
   }
-});
-
-snippetRouter.get("/test401", authorization, async function(
-  req: Request,
-  res: Response
-) {
-  return res.status(401).send();
 });
 
 export default snippetRouter;
