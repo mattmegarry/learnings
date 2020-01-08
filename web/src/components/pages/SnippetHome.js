@@ -16,6 +16,10 @@ class UserHome extends Component {
     this.getRecentSnippets = this.getRecentSnippets.bind(this);
   }
 
+  componentDidMount() {
+    this.getRecentSnippets();
+  }
+
   getRecentSnippets() {
     const { userId } = this.props;
     if (userId) {
@@ -40,11 +44,7 @@ class UserHome extends Component {
           userId={userId}
           getRecentSnippets={getRecentSnippets}
         />
-        <SnippetsRecent
-          userId={userId}
-          getRecentSnippets={getRecentSnippets}
-          snippets={snippets}
-        />
+        <SnippetsRecent snippets={snippets} />
       </>
     );
   }
