@@ -16,7 +16,7 @@ export class Collection {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ type: "varchar", length: 140, nullable: false })
+  @Column({ type: "varchar", length: 60, nullable: false, unique: true })
   collectionName: string;
 
   @Column({ nullable: false })
