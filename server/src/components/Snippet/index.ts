@@ -14,7 +14,7 @@ snippetRouter.post("/:userId", authorization, async function(
     return res.status(400).send(["Snippet text is required!"]);
   }
   try {
-    const savedSnippet = await getConnection()
+    await getConnection()
       .createQueryBuilder()
       .insert()
       .into(Snippet)
@@ -27,11 +27,7 @@ snippetRouter.post("/:userId", authorization, async function(
       ])
       .execute();
 
-    const data = {
-      savedSnippet
-    };
-    console.log(data);
-    return res.status(200).send(data);
+    return res.status(200).send();
   } catch (e) {
     console.error(e);
     return res.status(500).end();

@@ -4,23 +4,20 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   ManyToMany,
-  JoinTable,
   CreateDateColumn,
   UpdateDateColumn
 } from "typeorm";
+
 import { User } from "./User";
-import { Collection } from "./Collection";
+import { Snippet } from "./Snippet";
 
 @Entity()
-export class Snippet {
+export class Collection {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ type: "varchar", length: 500, nullable: true })
-  questionText: string;
-
-  @Column({ type: "varchar", length: 2500, nullable: false })
-  snippetText: string;
+  @Column({ type: "varchar", length: 140, nullable: false })
+  collectionName: string;
 
   @Column({ nullable: false })
   userId: string;
@@ -34,7 +31,6 @@ export class Snippet {
   @ManyToOne(() => User, user => user.snippets)
   user: User;
 
-  @ManyToMany(() => Collection, collection => collection.snippets)
-  @JoinTable()
-  collections: Collection[];
+  @ManyToMany(() => Snippet, snippet => snippet.collections)
+  snippets: Snippet[];
 }
