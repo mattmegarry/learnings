@@ -33,4 +33,30 @@ collectionRouter.post("/:userId", authorization, async function(
   }
 });
 
+collectionRouter.get(
+  "/:userId/recent-collections",
+  authorization,
+  async function(req: Request, res: Response) {
+    try {
+      const collections = await getConnection()
+        .createQueryBuilder()
+        .select("collection")
+        .from(Collection, "collection")
+        .where("collection.userId = :id", { id: res.locals.authorizedUser.id })
+        .orderBy("collection.updatedAt", "DESC")
+        .limit(10)
+        .getMany();
+
+      const data = {
+        collections
+      };
+      console.log(data);
+      return res.status(200).send(data);
+    } catch (e) {
+      console.error(e);
+      return res.status(500).end();
+    }
+  }
+);
+
 export default collectionRouter;
