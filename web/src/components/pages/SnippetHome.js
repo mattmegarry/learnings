@@ -21,7 +21,7 @@ class UserHome extends Component {
   }
 
   getRecentSnippets() {
-    const { userId } = this.props;
+    const userId = this.props.user.id;
     if (userId) {
       authRequest(`/users/${userId}/recent-snippets`, "GET")
         .then(res => {
@@ -34,7 +34,7 @@ class UserHome extends Component {
   }
 
   render() {
-    const userId = this.props.userId;
+    const { id: userId } = this.props.user;
     const { snippets } = this.state;
     const getRecentSnippets = this.getRecentSnippets;
 

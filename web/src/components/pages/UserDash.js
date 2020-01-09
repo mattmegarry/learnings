@@ -9,7 +9,8 @@ import {
 
 import NotFound from "./NotFound";
 import SnippetHome from "./SnippetHome";
-import SnippetCollections from "./SnippetCollections";
+import Collections from "./Collections";
+import Collection from "./Collection";
 import SnippetSeries from "./SnippetSeries";
 import SnippetFind from "./SnippetFind";
 
@@ -19,7 +20,7 @@ class UserDash extends Component {
   }
 
   render() {
-    const userId = this.props.user.id;
+    const { user } = this.props;
 
     return (
       <div className="user-dashboard">
@@ -42,11 +43,13 @@ class UserDash extends Component {
             <Route
               exact
               path="/"
-              render={props => (
-                <SnippetHome {...props} userId={userId} login={this.login} />
-              )}
+              render={props => <SnippetHome {...props} user={user} />}
             />
-            <Route exact path="/collections" component={SnippetCollections} />
+            <Route
+              exact
+              path="/collections"
+              render={props => <Collections {...props} user={user} />}
+            />
             <Route exact path="/series" component={SnippetSeries} />
             <Route exact path="/find" component={SnippetFind} />
             <Route component={NotFound} />
