@@ -77,7 +77,7 @@ class App extends Component {
                   />
                   <Route exact path="/signup" component={Signup} />
                   <PrivateRoute
-                    path="/"
+                    path="/:usernameParam"
                     component={UserDash}
                     authTokenPresent={this.state.authTokenPresent}
                     user={this.state.user}
