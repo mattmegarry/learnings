@@ -57,7 +57,8 @@
   color: red;
 }
 
-.snippet {
+.snippet,
+.collection-list-item {
   margin: 5px;
   padding: 5px;
   border: solid 2px blue;

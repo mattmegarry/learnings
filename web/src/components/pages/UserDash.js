@@ -30,10 +30,7 @@ class UserDash extends Component {
 
     if (username === usernameParam) {
       this.setState({ usernameMatchesUsernameParam: true });
-      console.log("they match!");
     }
-
-    console.log("Mounted!");
   }
 
   render() {
@@ -80,8 +77,14 @@ class UserDash extends Component {
             />
             <Route
               exact
+              strict
               path="/:username/collections"
               render={props => <Collections {...props} user={user} />}
+            />
+            <Route
+              exact
+              path="/:username/collections/:collectionId"
+              render={props => <Collection {...props} user={user} />}
             />
             <Route exact path="/:username/series" component={SnippetSeries} />
             <Route exact path="/:username/find" component={SnippetFind} />

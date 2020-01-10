@@ -43,7 +43,7 @@ collectionRouter.get(
         .select("collection")
         .from(Collection, "collection")
         .where("collection.userId = :id", { id: res.locals.authorizedUser.id })
-        .orderBy("collection.updatedAt", "DESC")
+        .orderBy("collection.createdAt", "DESC")
         .limit(10)
         .getMany();
 
@@ -64,13 +64,13 @@ collectionRouter.post(
   authorization,
   async function(req: Request, res: Response) {
     try {
-      const matchingCollections = await getConnection().manager.query(
+      const collections = await getConnection().manager.query(
         `SELECT id, "collectionName" FROM public.collection WHERE "collectionName" ILIKE $1 AND "userId" = $2`,
         ["%" + req.body.searchTerm + "%", res.locals.authorizedUser.id]
       );
 
       const data = {
-        matchingCollections
+        collections
       };
 
       res.status(200).send(data);
