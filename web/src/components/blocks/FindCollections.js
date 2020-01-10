@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 
-import { authRequest } from "../../utils/http.utils";
-
 class FindCollections extends Component {
   constructor(props) {
     super(props);

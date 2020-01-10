@@ -36,7 +36,8 @@ class UserDash extends Component {
   render() {
     const {
       user,
-      user: { username: username }
+      user: { username: username },
+      signout
     } = this.props;
 
     return (
@@ -73,21 +74,37 @@ class UserDash extends Component {
             <Route
               exact
               path="/:username"
-              render={props => <SnippetHome {...props} user={user} />}
+              render={props => (
+                <SnippetHome {...props} user={user} signout={signout} />
+              )}
             />
             <Route
               exact
               strict
               path="/:username/collections"
-              render={props => <Collections {...props} user={user} />}
+              render={props => (
+                <Collections {...props} user={user} signout={signout} />
+              )}
             />
             <Route
               exact
               path="/:username/collections/:collectionId"
-              render={props => <Collection {...props} user={user} />}
+              render={props => (
+                <Collection {...props} user={user} signout={signout} />
+              )}
             />
-            <Route exact path="/:username/series" component={SnippetSeries} />
-            <Route exact path="/:username/find" component={SnippetFind} />
+            <Route
+              exact
+              path="/:username/series"
+              component={SnippetSeries}
+              signout={signout}
+            />
+            <Route
+              exact
+              path="/:username/find"
+              component={SnippetFind}
+              signout={signout}
+            />
             <Route component={NotFound} />
           </Switch>
         </Router>

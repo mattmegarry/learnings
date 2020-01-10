@@ -5,6 +5,7 @@ export default function PrivateRoute({
   component: Component,
   authTokenPresent,
   user,
+  signout,
   ...rest
 }) {
   return (
@@ -12,7 +13,7 @@ export default function PrivateRoute({
       {...rest}
       render={props =>
         authTokenPresent ? (
-          <Component {...props} user={user} />
+          <Component {...props} user={user} signout={signout} />
         ) : (
           <Redirect
             to={{

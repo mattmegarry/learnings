@@ -41,7 +41,7 @@ export const authRequest = (path, method, body) => {
       // TO DO: 500
       if (res.status === 401) {
         deleteUserLocalStorage();
-        return {};
+        return { status: 401 };
       }
       const result = {};
       result.status = res.status;

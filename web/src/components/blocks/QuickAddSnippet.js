@@ -60,6 +60,8 @@ class QuickAddSnippet extends Component {
         } else if (res.status === 400 || res.status === 500) {
           this.setState({ errorMessage: res.data });
           this.resetMessages();
+        } else if (res.status === 401) {
+          this.props.signout();
         }
       })
       .catch(e => console.error(e));

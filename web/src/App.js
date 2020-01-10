@@ -81,6 +81,7 @@ class App extends Component {
                     component={UserDash}
                     authTokenPresent={this.state.authTokenPresent}
                     user={this.state.user}
+                    signout={this.signout}
                   />
                   <Route component={NotFound} />
                 </Switch>

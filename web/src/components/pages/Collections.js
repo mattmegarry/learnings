@@ -28,6 +28,8 @@ class Collections extends Component {
           if (res.status === 200) {
             console.log(res.data);
             this.setState({ collections: res.data.collections });
+          } else if (res.status === 401) {
+            this.props.signout();
           }
         })
         .catch(e => console.error(e));

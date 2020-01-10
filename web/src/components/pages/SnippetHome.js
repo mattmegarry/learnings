@@ -34,7 +34,10 @@ class UserHome extends Component {
   }
 
   render() {
-    const { id: userId } = this.props.user;
+    const {
+      user: { id: userId },
+      signout
+    } = this.props;
     const { snippets } = this.state;
     const getRecentSnippets = this.getRecentSnippets;
 
@@ -43,6 +46,7 @@ class UserHome extends Component {
         <QuickAddSnippet
           userId={userId}
           getRecentSnippets={getRecentSnippets}
+          signout={signout}
         />
         <SnippetsRecent snippets={snippets} />
       </>
