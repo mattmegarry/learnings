@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import CollectionsResults from "../blocks/CollectionsResults";
-import FindCollections from "../blocks/FindCollections";
+import FindCollectionsOrCreateOne from "../blocks/FindCollectionsOrCreateOne";
 
 import { authRequest } from "../../utils/http.utils";
 
@@ -13,21 +13,28 @@ class Collections extends Component {
       collections: []
     };
 
-    this.getCollections = this.getCollections.bind(this);
+    this.getCollectionsOrCreateOne = this.getCollectionsOrCreateOne.bind(this);
   }
 
   componentDidMount() {
-    this.getCollections("recent-collections", "GET");
+    this.getCollectionsOrCreateOne("recent-collections", "GET");
   }
 
-  getCollections(resource, method, body) {
+  getCollectionsOrCreateOne(resource, method, body) {
     const { id: userId } = this.props.user;
     if (userId) {
       authRequest(`/collections/${userId}/${resource}`, method, body)
         .then(res => {
-          if (res.status === 200) {
+          if (res.status === 200 && !res.data.message) {
             console.log(res.data);
+            console.log("Hee hoooooooo");
             this.setState({ collections: res.data.collections });
+          } else if (
+            res.status === 200 &&
+            res.data.message === "Collection Saved"
+          ) {
+            console.log("This happened!");
+            this.getCollectionsOrCreateOne("recent-collections", "GET");
           } else if (res.status === 401) {
             this.props.signout();
           }
@@ -37,13 +44,14 @@ class Collections extends Component {
   }
 
   render() {
-    const { id: userId, username } = this.props.user;
     const { collections } = this.state;
-    const getCollections = this.getCollections;
+    const { getCollectionsOrCreateOne } = this;
 
     return (
       <>
-        <FindCollections getCollections={this.getCollections} />
+        <FindCollectionsOrCreateOne
+          getCollectionsOrCreateOne={getCollectionsOrCreateOne}
+        />
         <CollectionsResults collections={collections} />
       </>
     );
